@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 class SearchForm extends Component {
-
   state = {
-    query: ""
+    query: ''
   }
 
   // This lets the SearchImages component know to use the query here for the search action
@@ -13,21 +13,22 @@ class SearchForm extends Component {
     this.props.fetchImages(this.state.query)
   }
 
-
-
   // Renders a form to search
-  render() {
-
+  render () {
     return (
       <div className="searchcontent">
         <h3 className="searchtext">Enter a Celestial Term:</h3>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.query} onChange={event => this.setState({query: event.target.value})} />
+          <input type="text" value={this.state.query} onChange={event => this.setState({ query: event.target.value })} />
           <Link to="/search" onClick={this.handleSubmit}><button id="searchformbutton">Submit</button></Link>
         </form>
       </div>
     )
   };
+}
+
+SearchForm.propTypes = {
+  fetchImages: PropTypes.func
 }
 
 export default SearchForm
