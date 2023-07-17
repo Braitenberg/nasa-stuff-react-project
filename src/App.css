@@ -1,10 +1,7 @@
-
-
-
 body {
   background: #141413;
   color: #ebedc7;
-  font-family: Georgia;
+  font-family: Verdana;
 }
 
 /* Component Features */
@@ -41,6 +38,7 @@ button {
   border-radius: 8px;
   background: black;
   color: #ebedc7;
+  margin: 1em;
 }
 
 button:hover {
@@ -103,10 +101,6 @@ button:hover {
   width: 100%;
   text-align: center;
   margin: 10px 0 80px 0;
-}
-
-.namegamebutton {
-  margin: 30px 0 90px 0;
 }
 
 .noresult {
@@ -211,7 +205,6 @@ button:hover {
   left: 0;
   background-image: linear-gradient(#fcfc9c, #ebedc7);
   text-align: center;
-  font-family: Georgia;
   font-weight: bold;
   z-index: 1;
   padding: 30px;

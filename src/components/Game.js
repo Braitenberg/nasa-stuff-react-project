@@ -58,7 +58,7 @@ function Game () {
   })
 
   const renderGame = () => {
-    return <div className="namegamebutton">{playGame()}</div>
+    return <div>{playGame()}</div>
   }
 
   return (
