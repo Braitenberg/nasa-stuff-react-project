@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import $ from 'jquery'
 import { Link } from 'react-router-dom'
 import Confetti from 'react-confetti'
 import { useRef } from 'react'
 
 function Game () {
+  const spaceWords = ['moon', 'earth', 'jupiter', 'saturn', 'pluto', 'mars', 'venus']
+  const imageUrl = 'https://images-api.nasa.gov/search?q='
+
   const [image, setImage] = useState('')
   const [answer, setAnswer] = useState('')
   const [lost, setLost] = useState(false)
@@ -13,28 +15,20 @@ function Game () {
 
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
-  // ajax request to get the image for the game
-  const getGameImage = () => {
-    const spaceSearch = ['moon', 'earth', 'jupiter', 'saturn', 'pluto', 'mars', 'venus']
-    const randomSearchItem = spaceSearch[Math.floor(Math.random() * spaceSearch.length)]
-    const oneHundred = []
-    for (let i = 0; i <= 100; i++) {
-      oneHundred.push(i)
-    }
-    const randomNumber = oneHundred[Math.floor(Math.random() * oneHundred.length)]
-
-    const url = 'https://images-api.nasa.gov/search?q='
+  // http request to get the image for the game
+  const getGameImage = async () => {
+    let randomSearchItem = spaceWords[Math.floor(Math.random() * spaceWords.length)]
 
     // sending the call to the NASA API
-    $.ajax({
-      url: url + randomSearchItem,
-      type: 'GET',
-      dataType: 'json'
-    }).done(function (json) {
-    }).then(json => {
-      setImage(json.collection.items[randomNumber].links[0].href)
-      setAnswer(randomSearchItem)
-    })
+    let response = await fetch(
+      imageUrl + randomSearchItem, { headers: { "Content-Type": "application/json" } }
+    )
+
+    let data = await response.json()
+    let items = data.collection.items
+    let randomNumber = Math.floor(Math.random() * items.length)
+
+    setImage(items[randomNumber].links[0].href)
   }
 
   // the player chooses one item and this function determines if it's a win
@@ -61,8 +55,6 @@ function Game () {
   }
 
   const game = () => {
-    const spaceWords = ['moon', 'earth', 'jupiter', 'saturn', 'pluto', 'mars', 'venus']
-
     return (
       <div>
         {spaceWords.map(
